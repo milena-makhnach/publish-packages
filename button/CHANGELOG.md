@@ -1,5 +1,11 @@
 # button
 
+## 1.1.0
+
+### Minor Changes
+
+- [`826be2e`](https://github.com/milena666-0-0/publish-packages/commit/826be2e32e1be3f5708bc285afd490fbf46286af) Thanks [@milena666-0-0](https://github.com/milena666-0-0)! - fdfdfdff
+
 ## 2.0.0
 
 ### Major Changes
