@@ -1,67 +1,33 @@
-name: Build, Test and Release
-# Limit main to one build at a time to prevent any race conditions
-concurrency: master
-
+name: Release
 on:
   push:
     branches:
       - master
-
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions: {} #reset
 jobs:
-  version:
+  release:
+    # IMPORTANT: prevent this action from running on forks
+    if: github.repository == 'USER_NAME/REPO_NAME'
+    permissions:
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
+    name: Release
     runs-on: ubuntu-latest
-    outputs:
-      changes: ${{ steps.version.outputs.changes }} # map step output to job output
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Enable node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 20.x
-
-      # This step will run changeset version, setting the step output to if there were changesets found
-      - name: Version command
-        id: version
-        run: |
-          npm install --no-package-lock --no-save @changesets/cli
-          echo ::set-output name=changes::$(npx changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
-      # Push the updated package.json, and CHANGESET.md files to github, this will trigger a new build
-      # the || echo 'No changes' is to ignore errors from git when trying to commit and there are no changes
-      - name: Push changes
-        if: steps.version.outputs.changes == 'true'
-        run: |
-          git config user.email "<email>"
-          git config user.name "<name>"
-          git add -A
-          git commit -m "Version packages" || echo "No changes to commit"
-          git push
-  build:
-    runs-on: ubuntu-latest
-    needs: version
-    # This will only run if there were no changesets.
-    ## the next triggered build from the push will then pass this step and continue with the release
-    if: always() && needs.version.outputs.changes == 'false'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Enable node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-        #### Your install/Build/Test/Package steps here
-
-      - name: Release packages
+          node-version: 18
+      - run: npm ci
+      - name: Publish to npm
+        id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn publish
+          publish: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 
 # name: release
