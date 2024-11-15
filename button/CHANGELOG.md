@@ -1,5 +1,11 @@
 # button
 
+## 2.0.0
+
+### Major Changes
+
+- [`68a6809`](https://github.com/milena666-0-0/publish-packages/commit/68a68093904bb58f7512f6e98075544d09298e6f) Thanks [@milena666-0-0](https://github.com/milena666-0-0)! - xsdsd
+
 ## 1.0.1
 
 ### Patch Changes
