@@ -1,1 +1,1 @@
-export const button = 'button big dsdsdsdsd'
+export const button = 'button big'
