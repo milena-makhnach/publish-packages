@@ -1,5 +1,11 @@
 # button
 
+## 1.3.0
+
+### Minor Changes
+
+- [#8](https://github.com/milena666-0-0/publish-packages/pull/8) [`55473aa`](https://github.com/milena666-0-0/publish-packages/commit/55473aacbb8da42f88a0f8aa0ab29adaf81cb789) Thanks [@milena666-0-0](https://github.com/milena666-0-0)! - ffgf
+
 ## 1.2.0
 
 ### Minor Changes
