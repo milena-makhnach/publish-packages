@@ -1,0 +1,7 @@
+{
+    "name": "input",
+    "private": true,
+    "version": "0.0.0",
+    "main": "./input.js",
+    "files": ["./input.js"]
+}
