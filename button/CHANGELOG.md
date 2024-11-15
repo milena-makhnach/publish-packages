@@ -1,5 +1,11 @@
 # button
 
+## 1.2.0
+
+### Minor Changes
+
+- [#6](https://github.com/milena666-0-0/publish-packages/pull/6) [`db1b613`](https://github.com/milena666-0-0/publish-packages/commit/db1b6138e639fafb09c208a8b567eb4ff5d28383) Thanks [@milena666-0-0](https://github.com/milena666-0-0)! - fgfgfg
+
 ## 1.1.0
 
 ### Minor Changes
