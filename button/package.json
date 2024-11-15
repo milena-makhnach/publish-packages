@@ -1,6 +1,8 @@
 {
-    "name": "button",
-    "version": "0.0.0",
+    "name": "button-288",
+    "version": "1.2.0",
     "main": "./button.js",
-    "files": ["./button.js"]
+    "files": [
+        "./button.js"
+    ]
 }

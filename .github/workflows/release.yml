@@ -1,4 +1,4 @@
-name: release
+name: Release
 
 on:
   push:
@@ -7,24 +7,31 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-permissions: {}
 jobs:
   release:
-    timeout-minutes: 20
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: install dependencies
-        run: npm ci
+
+      - name: Install Dependencies
+        run: yarn install
+
       - name: Create Release Pull Request or Publish to npm
+        id: changesets
         uses: changesets/action@v1
         with:
-          publish: npm run publish
-          commit: "chore: new release"
-          title: "chore: new release candidate"
+          publish: yarn realese
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Send a Slack notification if a publish happens
+        if: steps.changesets.outputs.published == 'true'
+        run: my-slack-bot send-notification --message "A new version of ${GITHUB_REPOSITORY} was published!"

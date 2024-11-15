@@ -1,1 +1,1 @@
-export const input = 'input'
+export const input = 'input ыв ыв ы вы'
