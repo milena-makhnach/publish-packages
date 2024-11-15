@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "publish": "npx changeset version && npx changeset publish",
+        "realese": "changeset publish",
         "publish:create": "npx changeset add",
         "npm": "npm publish --access public"
     },
